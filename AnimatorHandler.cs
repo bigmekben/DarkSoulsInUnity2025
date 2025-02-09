@@ -120,6 +120,12 @@ namespace SG
             anim.SetBool(name, true);
         }
 
+        // BJT Jan 27, 2025: to stop extra walking after action
+        public void SetFloat(string name,  float value)
+        {
+            anim.SetFloat(name, value);
+        }
+
         public void OnAnimatorMove()
         {
             if (playerManager.isInteracting == false)

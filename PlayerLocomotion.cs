@@ -111,6 +111,8 @@ namespace SG
 
             if(playerManager.isInteracting)
             {
+                animatorHandler.SetFloat("Vertical", 0); // BJT fix Jan 27, 2025
+                animatorHandler.SetFloat("Horizontal", 0); // BJT fix Jan 27, 2025
                 return;
             }
 
@@ -125,6 +127,10 @@ namespace SG
             {
                 speed = sprintSpeed;
                 playerManager.isSprinting = true;
+            }
+            else
+            {
+                playerManager.isSprinting = false;
             }
             moveDirection *= speed;
 
@@ -214,7 +220,7 @@ namespace SG
                     }
                     else
                     {
-                        animatorHandler.PlayTargetAnimation("Locomotion", false);
+                        animatorHandler.PlayTargetAnimation("Empty", false);
                         inAirTimer = 0;
                     }
 
@@ -244,21 +250,32 @@ namespace SG
                 }
             }
 
-            // body may have just "landed" (touched ground) during this frame, or where already on the ground from a
-            // previous frame:
-            if (playerManager.isGrounded)
+            // From Episode 11:
+            if (playerManager.isInteracting || inputHandler.moveAmount > 0)
             {
-                if(playerManager.isInteracting || inputHandler.moveAmount > 0)
-                {
-                    myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
-                    // Not sure this block does much; the only difference would be the y of targetPosition.
-                    // I suppose the point is to ease into the collision point (only the y coordinate would be impacted).
-                }
-                else
-                {
-                    myTransform.position = targetPosition;
-                }
+                myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
             }
+            else
+            {
+                myTransform.position = targetPosition;
+            }
+
+            //// From the original "falling" video:
+            //// body may have just "landed" (touched ground) during this frame, or where already on the ground from a
+            //// previous frame:
+            //if (playerManager.isGrounded)
+            //{
+            //    if(playerManager.isInteracting || inputHandler.moveAmount > 0)
+            //    {
+            //        myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
+            //        // Not sure this block does much; the only difference would be the y of targetPosition.
+            //        // I suppose the point is to ease into the collision point (only the y coordinate would be impacted).
+            //    }
+            //    else
+            //    {
+            //        myTransform.position = targetPosition;
+            //    }
+            //}
         }
 
         #endregion
