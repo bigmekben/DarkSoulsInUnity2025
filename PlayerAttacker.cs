@@ -37,5 +37,15 @@ namespace SG
             animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_attack_1 , true);
             lastAttack = weapon.OH_Heavy_attack_1;
         }
+
+
+        // temp: equip animations here.  Later: make PlayerEquipper, or something, to move these there.
+        public void EquipRightWaist()
+        {
+            // for now: make it so you can't move while switching weapons.
+            // to do: allow to continue walking or sprinting, but not rolling, attacking, etc.
+            // for this, would need to split the "interacting" flag into multiple flags.
+            animatorHandler.PlayTargetAnimation("Equip_Right_Waist", true);
+        }
     }
 }

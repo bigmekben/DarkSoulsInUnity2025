@@ -13,7 +13,10 @@ namespace SG
         public bool circleInput;
         public bool rbInput;
         public bool rtInput;
-
+        public bool dPadUp;
+        public bool dPadDown;
+        public bool dPadLeft;
+        public bool dPadRight;
 
         public bool rollFlag;
         public bool sprintFlag;
@@ -56,6 +59,7 @@ namespace SG
             MoveInput(delta);
             HandleCircleInput(delta);
             HandleAttackInput(delta);
+            HandleQuickSlotsInput();
         }
 
         private void MoveInput(float delta)
@@ -132,6 +136,24 @@ namespace SG
                 }
 
                 playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+            }
+        }
+
+        private void HandleQuickSlotsInput()
+        {
+            inputActions.Player.Previous.performed += i => dPadLeft = true;
+            inputActions.Player.Next.performed += i => dPadRight = true;
+            if (dPadRight)
+            {
+                playerAttacker.EquipRightWaist();
+                // to do: attach a "holster" object to the player's waist.  EquipRightWaist should tell it 
+                // which model to display depending on the recently-unequipped weaponItem.  So should pass some params to EquipRightWaist after all.
+                // should be fine for now though.
+                playerInventory.ChangeRightWeapon();
+            }
+            if (dPadLeft)
+            {
+                // playerInventory.ChangeLeftWeapon();
             }
         }
     }

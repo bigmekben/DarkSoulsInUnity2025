@@ -61,6 +61,10 @@ namespace SG
             inputHandler.sprintFlag = false;
             inputHandler.rbInput = false;
             inputHandler.rtInput = false;
+            inputHandler.dPadLeft = false;
+            inputHandler.dPadRight = false;
+            inputHandler.dPadUp = false;
+            inputHandler.dPadDown = false;
 
             if (isInAir)
             {
