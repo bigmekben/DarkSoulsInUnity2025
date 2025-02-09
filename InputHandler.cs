@@ -165,7 +165,7 @@ namespace SG
             }
             if (dPadLeft)
             {
-                // playerInventory.ChangeLeftWeapon();
+                playerInventory.ChangeLeftWeapon();
             }
         }
 

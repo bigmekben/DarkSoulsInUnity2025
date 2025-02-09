@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,6 +59,29 @@ namespace SG
                 else
                 {
                     currentRightWeaponIndex++;
+                }
+            }
+        }
+
+        internal void ChangeLeftWeapon()
+        {
+            currentLeftWeaponIndex++;
+            if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1)
+            {
+                currentLeftWeaponIndex = -1;
+                leftWeapon = unarmedWeapon;
+                weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
+            }
+            else
+            {
+                if(weaponsInLeftHandSlots[currentLeftWeaponIndex] != null)
+                {
+                    leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
+                    weaponSlotManager.LoadWeaponOnSlot(weaponsInLeftHandSlots[currentLeftWeaponIndex], true);
+                }
+                else
+                {
+                    currentLeftWeaponIndex++;
                 }
             }
         }

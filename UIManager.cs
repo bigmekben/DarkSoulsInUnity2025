@@ -4,6 +4,7 @@ namespace SG
     public class UIManager : MonoBehaviour
     {
         public PlayerInventory playerInventory;
+        EquipmentWindowUI equipmentWindowUI;
 
         [Header("UI Windows")]
         public GameObject hudWindow;
@@ -18,6 +19,12 @@ namespace SG
         private void Start()
         {
             weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
+            equipmentWindowUI.LoadWeaponsOnEquipmentScreen(playerInventory);
+        }
+
+        private void Awake()
+        {
+            equipmentWindowUI = FindFirstObjectByType<EquipmentWindowUI>();
         }
 
         public void UpdateUI()
