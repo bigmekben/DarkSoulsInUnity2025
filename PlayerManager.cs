@@ -78,6 +78,7 @@ namespace SG
             inputHandler.bInput = false;
             inputHandler.yInput = false;
             inputHandler.xInput = false;
+            inputHandler.inventoryInput = false;
 
             if (isInAir)
             {

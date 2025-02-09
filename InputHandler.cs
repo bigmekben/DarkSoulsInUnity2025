@@ -22,16 +22,19 @@ namespace SG
         public bool dPadDown;
         public bool dPadLeft;
         public bool dPadRight;
+        public bool inventoryInput;
 
         public bool rollFlag;
         public bool sprintFlag;
         public bool comboFlag;
+        public bool inventoryFlag;
         public float rollInputTimer;
 
         InputSystem_Actions inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        UIManager uiManager;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -41,6 +44,7 @@ namespace SG
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
+            uiManager = FindFirstObjectByType<UIManager>();
         }
 
         public void OnEnable()
@@ -67,6 +71,7 @@ namespace SG
             HandleQuickSlotsInput();
             HandleInteractingButtonInput();
             HandleYTriangleInput();
+            HandleInventoryInput();
         }
 
         private void MoveInput(float delta)
@@ -173,6 +178,24 @@ namespace SG
         private void HandleYTriangleInput()
         {
             inputActions.Player.TriangleButton.performed += i => yInput = true;
+        }
+
+        private void HandleInventoryInput()
+        {
+            inputActions.Player.OptionsButton.performed += i => inventoryInput = true;
+            if(inventoryInput)
+            {
+                inventoryFlag = !inventoryFlag;
+
+                if(inventoryFlag)
+                {
+                    uiManager.OpenSelectWindow();
+                }
+                else
+                {
+                    uiManager.CloseSelectWindow();
+                }
+            }
         }
     }
 }
