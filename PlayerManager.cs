@@ -43,6 +43,7 @@ namespace SG
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection); // couldn't HandleFalling just access moveDirection directly?
+            CheckForInteractableObject();
         }
 
         private void FixedUpdate()
@@ -65,10 +66,33 @@ namespace SG
             inputHandler.dPadRight = false;
             inputHandler.dPadUp = false;
             inputHandler.dPadDown = false;
+            inputHandler.aInput = false;
 
             if (isInAir)
             {
                 playerLocomotion.inAirTimer += Time.deltaTime;
+            }
+        }
+
+        public void CheckForInteractableObject()
+        {
+            RaycastHit hit;
+            if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
+            {
+                if (hit.collider.tag == "Interactable")
+                {
+                    Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+                    if (interactableObject != null)
+                    {
+                        string interactableText = interactableObject.interactableText;
+                        // set the UI text to interactable text
+                        // set text pop up to true
+                        if (inputHandler.aInput)
+                        {
+                            hit.collider.GetComponent<Interactable>().Interact(this);
+                        }
+                    }
+                }
             }
         }
     }

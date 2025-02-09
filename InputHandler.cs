@@ -10,7 +10,10 @@ namespace SG
         public float mouseX;
         public float mouseY;
 
-        public bool circleInput;
+        public bool bInput;
+        public bool aInput;
+        public bool yInput;
+        public bool xInput;
         public bool rbInput;
         public bool rtInput;
         public bool dPadUp;
@@ -60,6 +63,7 @@ namespace SG
             HandleCircleInput(delta);
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
+            HandleInteractingButtonInput();
         }
 
         private void MoveInput(float delta)
@@ -73,8 +77,8 @@ namespace SG
 
         private void HandleCircleInput(float delta)
         {
-            circleInput = inputActions.Player.CircleButton.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
-            if(circleInput)
+            bInput = inputActions.Player.CircleButton.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+            if(bInput)
             {
                 rollInputTimer += delta;
                 if (moveAmount > 0.5f)
@@ -155,6 +159,12 @@ namespace SG
             {
                 // playerInventory.ChangeLeftWeapon();
             }
+        }
+
+        private void HandleInteractingButtonInput()
+        {
+            inputActions.Player.XButton.performed += i => aInput = true;
+
         }
     }
 }
