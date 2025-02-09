@@ -26,7 +26,7 @@ namespace SG
             horizontal = Animator.StringToHash("Horizontal");
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement)
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting = false)
         {
             // TODO: see what happens if you skip this logic and just set v = verticalMovement, h = horizontalMovement.
             #region Vertical
@@ -79,8 +79,13 @@ namespace SG
 
             #endregion
 
-            v = verticalMovement; // temp experiment
-            h = horizontalMovement; // temp experiment
+            v = verticalMovement; // temp experiment -BJT's idea
+            h = horizontalMovement; // temp experiment -BJT's idea
+
+            if (isSprinting)
+            {
+                v = 2;
+            }
 
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);

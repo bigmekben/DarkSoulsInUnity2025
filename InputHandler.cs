@@ -12,6 +12,8 @@ namespace SG
 
         public bool circleInput;
         public bool rollFlag;
+        public bool sprintFlag;
+        public float rollInputTimer;
         public bool isInteracting;
 
         InputSystem_Actions inputActions;
@@ -71,7 +73,17 @@ namespace SG
             circleInput = inputActions.Player.Crouch.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
             if(circleInput)
             {
-                rollFlag = true;
+                rollInputTimer += delta;
+                sprintFlag = true;
+            }
+            else
+            {
+                if (rollInputTimer > 0 && rollInputTimer < 0.5f)
+                {
+                    sprintFlag = false;
+                    rollFlag = true;
+                }
+                rollInputTimer = 0;
             }
         }
 
