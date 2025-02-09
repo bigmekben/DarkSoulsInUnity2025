@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace SG
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : CharacterManager
     {
 
         InputHandler inputHandler;

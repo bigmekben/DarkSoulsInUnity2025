@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "OptionsButton",
+                    "type": "Button",
+                    "id": "beadc33e-924a-4bc3-964b-295cf6e13a5a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "TriangleButton",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
@@ -45,6 +54,24 @@
                     "name": "CircleButton",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L3",
+                    "type": "Button",
+                    "id": "e254fa1a-64d7-496d-bfe9-a3aca88b8682",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R3",
+                    "type": "Button",
+                    "id": "fc612c77-bfcd-442e-ad64-5ffd623593a8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -262,6 +289,17 @@
                 },
                 {
                     "name": "",
+                    "id": "098a4051-3e6c-4e89-a8c4-3883abc549d3",
+                    "path": "<XInputController>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XR",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -323,6 +361,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SquareButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "899179d2-e8c2-4f91-b11b-d26c56dc3816",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "OptionsButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -482,6 +531,50 @@
                 },
                 {
                     "name": "",
+                    "id": "7b791680-7b74-4c0b-92b0-82d111047f5e",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "L3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "801d5333-ea48-4352-a5fd-5fabb005c2eb",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "L3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fdd0e75-6e75-4b01-850e-23ed696a76df",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "R3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3dfc2797-760a-48bf-862e-7412b788a458",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "R3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e6a073f6-0972-4939-9ce2-b8138121b681",
                     "path": "<DualShockGamepad>/rightShoulder",
                     "interactions": "",
@@ -493,11 +586,33 @@
                 },
                 {
                     "name": "",
+                    "id": "da975651-b6c6-4555-8f72-65768d318997",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "RB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5faf827b-01c1-4235-b241-133f904232d9",
                     "path": "<DualShockGamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "RT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63c1a331-5368-492e-9354-bdbff85a2db4",
+                    "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "RT",
                     "isComposite": false,
                     "isPartOfComposite": false

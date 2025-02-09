@@ -23,10 +23,13 @@ namespace SG
         public bool dPadLeft;
         public bool dPadRight;
         public bool inventoryInput;
+        public bool l3Input;
+        public bool r3Input;
 
         public bool rollFlag;
         public bool sprintFlag;
         public bool comboFlag;
+        public bool lockOnFlag;
         public bool inventoryFlag;
         public float rollInputTimer;
 
@@ -35,6 +38,7 @@ namespace SG
         PlayerInventory playerInventory;
         PlayerManager playerManager;
         UIManager uiManager;
+        CameraHandler cameraHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -45,6 +49,7 @@ namespace SG
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             uiManager = FindFirstObjectByType<UIManager>();
+            cameraHandler = FindFirstObjectByType<CameraHandler>();
         }
 
         public void OnEnable()
@@ -61,8 +66,15 @@ namespace SG
                 inputActions.Player.XButton.performed += i => aInput = true;
                 inputActions.Player.TriangleButton.performed += i => yInput = true;
                 inputActions.Player.OptionsButton.performed += i => inventoryInput = true;
+                inputActions.Player.L3.performed += i => l3Input = true;
+                inputActions.Player.R3.performed += i => r3Input = true;
             }
             inputActions.Enable();
+        }
+
+        private void R3_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void OnDisable()
@@ -79,6 +91,7 @@ namespace SG
             HandleInteractingButtonInput();
             HandleYTriangleInput();
             HandleInventoryInput();
+            HandleLockOnInput();
         }
 
         private void MoveInput(float delta)
@@ -196,6 +209,27 @@ namespace SG
                     uiManager.CloseAllInventoryWindows();
                     uiManager.hudWindow.SetActive(true);
                 }
+            }
+        }
+
+        private void HandleLockOnInput()
+        {
+            if(r3Input && !lockOnFlag)
+            {
+                cameraHandler.ClearLockOnTargets();
+                r3Input = false;
+                cameraHandler.HandleLockOn();
+                if(cameraHandler.nearestLockOnTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                    lockOnFlag = true;
+                }
+            }
+            else if (r3Input && lockOnFlag)
+            {
+                r3Input = false;
+                lockOnFlag = false;
+                cameraHandler.ClearLockOnTargets();
             }
         }
     }
