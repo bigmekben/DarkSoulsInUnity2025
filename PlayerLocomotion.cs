@@ -63,6 +63,8 @@ namespace SG
         float rotationSpeed = 10f;
         [SerializeField]
         float fallingSpeed = 80f;
+        [SerializeField]
+        float jumpForce = 10f;
 
         private void Start()
         {
@@ -291,6 +293,34 @@ namespace SG
             //}
         }
 
+        public void HandleJumping()
+        {
+            if(playerManager.isInteracting)
+            {
+                return;
+            }
+
+            if(inputHandler.yInput)
+            {
+                if(inputHandler.moveAmount > 0)
+                {
+                    moveDirection = cameraObject.forward * inputHandler.vertical;
+                    moveDirection += cameraObject.right * inputHandler.horizontal;
+                    // from roblatham4122 on Episode 19:
+
+                    //Vector3 currentVelocity = GetComponent<Rigidbody>().linearVelocity;
+                    //Vector3 jumpDirection = (moveDirection + Vector3.up).normalized;
+                    //GetComponent<Rigidbody>().linearVelocity = currentVelocity + jumpDirection * jumpForce;
+
+                    // BT: also match the collider's position
+
+                    animatorHandler.PlayTargetAnimation("Jump", false); // true rec. by SG, false rec. by @DiegoGrajales12 on Ep 19
+                    moveDirection.y = 0; // root motion will take care of y movement
+                    Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
+                    myTransform.rotation = jumpRotation;
+                }
+            }
+        }
         #endregion
     }
 }

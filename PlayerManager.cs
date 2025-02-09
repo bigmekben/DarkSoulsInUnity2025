@@ -42,11 +42,13 @@ namespace SG
 
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
+            anim.SetBool("isInAir", isInAir);
 
             inputHandler.TickInput(delta);
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection); // couldn't HandleFalling just access moveDirection directly?
+            playerLocomotion.HandleJumping();
             CheckForInteractableObject();
         }
 
@@ -66,11 +68,16 @@ namespace SG
             inputHandler.sprintFlag = false;
             inputHandler.rbInput = false;
             inputHandler.rtInput = false;
+            inputHandler.lbInput = false;
+            inputHandler.ltInput = false;
             inputHandler.dPadLeft = false;
             inputHandler.dPadRight = false;
             inputHandler.dPadUp = false;
             inputHandler.dPadDown = false;
             inputHandler.aInput = false;
+            inputHandler.bInput = false;
+            inputHandler.yInput = false;
+            inputHandler.xInput = false;
 
             if (isInAir)
             {

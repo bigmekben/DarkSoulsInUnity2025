@@ -16,6 +16,8 @@ namespace SG
         public bool xInput;
         public bool rbInput;
         public bool rtInput;
+        public bool lbInput;
+        public bool ltInput;
         public bool dPadUp;
         public bool dPadDown;
         public bool dPadLeft;
@@ -64,6 +66,7 @@ namespace SG
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
             HandleInteractingButtonInput();
+            HandleYTriangleInput();
         }
 
         private void MoveInput(float delta)
@@ -165,6 +168,11 @@ namespace SG
         {
             inputActions.Player.XButton.performed += i => aInput = true;
 
+        }
+
+        private void HandleYTriangleInput()
+        {
+            inputActions.Player.TriangleButton.performed += i => yInput = true;
         }
     }
 }
