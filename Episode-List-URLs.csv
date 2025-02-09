@@ -1,0 +1,153 @@
+﻿Episode,Title,URL
+0,How to Create Dark Souls in Unity,https://youtu.be/HKMo3pczQyc
+1,Movement,https://youtu.be/LOC5GJ5rFFw
+2,Camera Handler,https://youtu.be/c1FYp1oOFIs
+3,Camera Collisions,https://youtu.be/Don3lGSAF2A
+4,Rolling,https://youtu.be/RVWh-YAQElQ
+5,Sprint,https://youtu.be/gyqfmE_1aus
+6,House Keeping (pt. 1),https://youtu.be/hoEreco1L-c
+7,Player Falling & Fall Detection,https://youtu.be/dJdmUgqgZjU
+8,Weapon Items,https://youtu.be/7IbW2dxxrf4
+9,Light & Heavy Attacks,https://youtu.be/cOGep0Vlayk
+10,Player Health & Damage,https://youtu.be/iJSfBwC121c
+11,Dealing Damage,https://youtu.be/kU478xrj-R0
+12,Weapon Combos,https://youtu.be/R6vtF4mpiOw
+13,Weapon Idle Animations,https://youtu.be/6JrjKrFavmY
+14,UI (Pt. 1) - Quick Slots,https://youtu.be/qC9TPzXdxyk
+15,UI (Pt. 2) - Weapon Equipment Slots,https://youtu.be/Xo8gKcu3yxw
+16,Weapon Stamina Drain,https://youtu.be/K3--1PCTf_g
+17,Pick Up Item,https://youtu.be/Rva7zfW9NFw
+18,UI (Pt. 3) - Pop Ups/Interactable Objects,https://youtu.be/SaSbwLs8WOo
+19,Jump,https://youtu.be/cc9u4bNzYRg
+20,UI (Pt. 4) - Inventory Screen,https://youtu.be/0ZI1Si23XbE
+21,UI (Pt. 5) - Inventory Slot UI,https://youtu.be/l7yYL00dzIo
+22,UI (Pt. 6) - Equipment Screen,https://youtu.be/jFRI3hwQhOE
+23,House Keeping (Pt. 2),https://youtu.be/iQ6IvTsSmY8
+24,Lock On (Pt. 1),https://youtu.be/r5SdldM0pKQ
+25,Lock On (Pt. 2),https://youtu.be/XOmXBO7a1RA
+26,Lock On (Pt. 3),https://youtu.be/5SnhbiKsqoY
+27,Switch Weapons From Inventory,https://youtu.be/R_0hcqRaLMk
+28,Two Handing Weapon,https://youtu.be/TbHPMRDJpHE
+29,Two Handed Attacks,https://youtu.be/EDFfiCuWdzw
+30,Enemy A.I. - FOV Detection,https://youtu.be/DPtfgQvUlEQ
+31,Enemy A.I. - Movement & Pathfinding,https://youtu.be/rGIxCB3MKtI
+32,Enemy A.I - Attacks,https://youtu.be/XdSNG6FWq8A
+33,A.I. State Machine,https://youtu.be/X7TPjtsdqhg
+34,A.I. State Machine (Pt. 2),https://youtu.be/g43lohNVF9M
+35,Enemy Ambush & Sleep State,https://youtu.be/b4SXvUHTTig
+36,House Keeping (Pt. 3),https://youtu.be/wlTcjmVdF8g
+37,Enemy Damage & Player Death,https://youtu.be/ZpqaUmeVXM0
+38,Rolling Invulnerability & Stamina Regeneration,https://youtu.be/vHxcJihYXhc
+39,Spell Casting Foundation,https://youtu.be/ePjsgMPu6VQ
+40,Heal Player Spell,https://youtu.be/CaB4gjFUn10
+41,Focus Points,https://youtu.be/BZFbIZ3AGao
+42,Backstab,https://youtu.be/W4MxiwfTK0U
+43,Critical Damage Via Animation,https://youtu.be/fRD0_Xoo_Q8
+44,Rotate During Attack,https://youtu.be/64jKXrxp9KA
+45,Stamina Dependant Actions,https://youtu.be/nLhCa_17fHQ
+46,Lootable Chests,https://youtu.be/r7opu5SIEIo
+47,Souls,https://youtu.be/1VLrPFZHkhU
+48,Riposte,https://youtu.be/bJ3MHKcCGDc
+49,Parry,https://youtu.be/2sO84xv82w4
+50,A.I. Combos,https://youtu.be/c-KCPXqo4Q4
+51,Blocking (Pt. 1),https://youtu.be/OSQjFVliVD4
+52,Blocking (Pt. 2),https://youtu.be/wSE_QkLKHn4
+53,A.I. Combos (Pt. 2),https://youtu.be/SH87d9utAmg
+54,Enemy HP Bar,https://youtu.be/UCiyOOfUxJQ
+55,Fire Balls (Pt. 1),https://youtu.be/ada5DdHsQTg
+56,Fire Balls (Pt. 2),https://youtu.be/Smi5j4tRiGM
+57,Drink Estus Flask,https://youtu.be/lx_WIy7QUGc
+58,Helmet Equipment,https://youtu.be/8J3IwtY-XWg
+59,Torso Equipment,https://youtu.be/ry5Rb9vb88w
+60,Leg & Hand Equipment,
+61,Damage Absorption,
+62,Illusionary Walls,
+63,A.I. Pivoting,
+64,A.I. Strafing,
+65,Boss Health Bar,
+66,Boss Fight Event,
+67,Fog Walls,
+68,Boss Phases,
+69,Poise (Pt. 1),
+70,Poise (Pt. 2),
+71,House Keeping (Pt. 4),
+72,House Keeping (Pt. 5),
+73,Weapon Trails,
+74,Blood Splat,
+75,Poison (Pt. 1),
+76,Poison (Pt. 2),
+77,Fire Bombs (Pt. 1),
+78,Fire Bombs (Pt. 2),
+79,Friendly Fire,
+80,Weapon Animator Controllers,
+81,Two Hand Animation Rigging,
+82,House Keeping (Pt. 6),
+83,Directional Based Damage Animation,
+84,Archery (Pt. 1),
+85,Archery (Pt. 2),
+86,Archery (Pt. 3),
+87,Running & Jumping,
+88,Archery (Pt. 4),
+89,Arrow Surface Penetration,
+90,Item based actions (Pt. 1),
+91,Item based actions (Pt. 2),
+92,Item based actions (Pt. 3),
+93,Leveling Up (Pt. 1),
+94,Leveling Up (Pt. 2),
+95,Leveling Up (Pt. 3),
+96,House Keeping (Pt. 7),
+97,UI (Pt. 7) - Head Equipment UI,
+98,"UI (Pt. 7) - Body, Leg & Hand Equipment UI",
+99,UI (Pt. 8) - Item Stats Panel,
+100,UI (Pt. 9) - Weapon Stats,
+101,UI (Pt. 10) - Armor Stats,
+102,Charge Attacks,
+103,Sound FX (Pt. 1),
+104,Bonfires (Pt. 1),
+105,Attack Type Damage Modifiers,
+106,Attack Type Stamina Modifiers,
+107,Guard Breaking,
+108,House Keeping (Pt. 8),
+109,Advanced A.I. (Pt. 1),
+110,Advanced A.I. (Pt. 2),
+111,Advanced A.I. (Pt. 3),
+112,Advanced A.I. (Pt. 4),
+113,Advanced A.I. (Pt. 5),
+114,Advanced A.I. (Pt. 6),
+115,Advanced A.I. (Pt. 7),
+116,Limb Specific Damage,
+117,Polish (Pt. 1),
+118,Friendly Phantoms (Pt. 1),
+119,Friendly Phantoms (Pt. 2),
+120,Input/Action Queue,
+121,A.I. Patrol Paths - Advanced A.I. (Pt. 8),
+122,Game Saving (Pt. 1),
+123,Game Saving (Pt. 2),
+124,Game Saving (Pt. 3),
+125,Game Saving (Pt. 4),
+126,Character Effects (Pt. 1),
+127,Character Effects (Pt. 2),
+128,Ring Items (Pt. 1),
+129,Secondary Bar Effect + Damage Value,
+130,Weapon Buffs (Pt. 1),
+131,Weapon Buffs (Pt. 2),
+132,Character Effects (Pt. 3),
+133,Character Effects (Pt. 4),
+134,Character Effects (Pt. 5),
+135,Character Effects (Pt. 6),
+136,Better Movement (Pt. 1),
+137,Better Movement (Pt. 2),
+138,Equipment Load,
+139,Animation Cancelling,
+140,Elevators,
+141,Netcode Refactor (Pt. 1),
+142,Netcode Refactor (Pt. 2),
+143,Netcode Refactor (Pt. 3.),
+144,Netcode Refactor (Pt. 4),
+145,Netcode Refactor (Pt. 5),
+146,Netcode Refactor (Pt. 6),
+147,Netcode Refactor (Pt. 7),
+148,Netcode Refactor (Pt. 8),
+149,Netcode Refactor (Pt. 9),
+150,Netcode Refactor (Pt. 10),
+151,Netcode Refactor (Pt. 11),
