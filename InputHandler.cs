@@ -54,6 +54,13 @@ namespace SG
                 inputActions = new InputSystem_Actions();
                 inputActions.Player.Move.performed += inputAction => movementInput = inputAction.ReadValue<Vector2>();
                 inputActions.Player.Look.performed += i => cameraInput = i.ReadValue<Vector2>();
+                inputActions.Player.RB.performed += i => rbInput = true;
+                inputActions.Player.RT.performed += i => rtInput = true;
+                inputActions.Player.Previous.performed += i => dPadLeft = true;
+                inputActions.Player.Next.performed += i => dPadRight = true;
+                inputActions.Player.XButton.performed += i => aInput = true;
+                inputActions.Player.TriangleButton.performed += i => yInput = true;
+                inputActions.Player.OptionsButton.performed += i => inventoryInput = true;
             }
             inputActions.Enable();
         }
@@ -86,13 +93,10 @@ namespace SG
         private void HandleCircleInput(float delta)
         {
             bInput = inputActions.Player.CircleButton.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
-            if(bInput)
+            sprintFlag = bInput;
+            if (bInput)
             {
                 rollInputTimer += delta;
-                if (moveAmount > 0.5f)
-                {
-                    sprintFlag = true;
-                }
             }
             else
             {
@@ -107,8 +111,6 @@ namespace SG
 
         private void HandleAttackInput(float delta)
         {
-            inputActions.Player.RB.performed += i => rbInput = true;
-            inputActions.Player.RT.performed += i => rtInput = true;
 
             if(rbInput)
             {
@@ -153,8 +155,6 @@ namespace SG
 
         private void HandleQuickSlotsInput()
         {
-            inputActions.Player.Previous.performed += i => dPadLeft = true;
-            inputActions.Player.Next.performed += i => dPadRight = true;
             if (dPadRight)
             {
                 playerAttacker.EquipRightWaist();
@@ -171,18 +171,15 @@ namespace SG
 
         private void HandleInteractingButtonInput()
         {
-            inputActions.Player.XButton.performed += i => aInput = true;
 
         }
 
         private void HandleYTriangleInput()
         {
-            inputActions.Player.TriangleButton.performed += i => yInput = true;
         }
 
         private void HandleInventoryInput()
         {
-            inputActions.Player.OptionsButton.performed += i => inventoryInput = true;
             if(inventoryInput)
             {
                 inventoryFlag = !inventoryFlag;

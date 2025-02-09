@@ -45,9 +45,7 @@ namespace SG
             anim.SetBool("isInAir", isInAir);
 
             inputHandler.TickInput(delta);
-            playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
-            playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection); // couldn't HandleFalling just access moveDirection directly?
             playerLocomotion.HandleJumping();
             CheckForInteractableObject();
         }
@@ -55,17 +53,13 @@ namespace SG
         private void FixedUpdate()
         {
             float delta = Time.fixedDeltaTime;
-            if (cameraHandler != null)
-            {
-                cameraHandler.FollowTarget(delta);
-                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
-            }
+            playerLocomotion.HandleMovement(delta);
+            playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection); // couldn't HandleFalling just access moveDirection directly?
         }
 
         private void LateUpdate()
         {
             inputHandler.rollFlag = false;
-            inputHandler.sprintFlag = false;
             inputHandler.rbInput = false;
             inputHandler.rtInput = false;
             inputHandler.lbInput = false;
@@ -79,6 +73,13 @@ namespace SG
             inputHandler.yInput = false;
             inputHandler.xInput = false;
             inputHandler.inventoryInput = false;
+
+            float delta = Time.deltaTime;
+            if (cameraHandler != null)
+            {
+                cameraHandler.FollowTarget(delta);
+                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
+            }
 
             if (isInAir)
             {
