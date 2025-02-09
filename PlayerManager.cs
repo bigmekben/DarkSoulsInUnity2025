@@ -57,7 +57,8 @@ namespace SG
         {
             inputHandler.rollFlag = false;
             inputHandler.sprintFlag = false;
-            isSprinting = inputHandler.circleInput;
+            inputHandler.rbInput = false;
+            inputHandler.rtInput = false;
 
             if (isInAir)
             {

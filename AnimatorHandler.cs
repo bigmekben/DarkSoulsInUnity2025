@@ -110,6 +110,15 @@ namespace SG
             anim.CrossFade(targetAnim, 0.2f);
         }
 
+        public bool GetBool(string name)
+        {
+            return anim.GetBool(name);
+        }
+
+        public void SetBool(string name)
+        {
+            anim.SetBool(name, true);
+        }
 
         public void OnAnimatorMove()
         {

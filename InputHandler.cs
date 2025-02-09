@@ -11,16 +11,26 @@ namespace SG
         public float mouseY;
 
         public bool circleInput;
+        public bool rbInput;
+        public bool rtInput;
+
+
         public bool rollFlag;
         public bool sprintFlag;
         public float rollInputTimer;
 
         InputSystem_Actions inputActions;
+        PlayerAttacker playerAttacker;
+        PlayerInventory playerInventory;
 
         Vector2 movementInput;
         Vector2 cameraInput;
 
-
+        private void Awake()
+        {
+            playerAttacker = GetComponent<PlayerAttacker>();
+            playerInventory = GetComponent<PlayerInventory>();
+        }
 
         public void OnEnable()
         {
@@ -42,6 +52,7 @@ namespace SG
         {
             MoveInput(delta);
             HandleCircleInput(delta);
+            HandleAttackInput(delta);
         }
 
         private void MoveInput(float delta)
@@ -55,11 +66,14 @@ namespace SG
 
         private void HandleCircleInput(float delta)
         {
-            circleInput = inputActions.Player.Crouch.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+            circleInput = inputActions.Player.CircleButton.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
             if(circleInput)
             {
                 rollInputTimer += delta;
-                sprintFlag = true;
+                if (moveAmount > 0.5f)
+                {
+                    sprintFlag = true;
+                }
             }
             else
             {
@@ -72,5 +86,26 @@ namespace SG
             }
         }
 
+        private void HandleAttackInput(float delta)
+        {
+            inputActions.Player.RB.performed += i => rbInput = true;
+            inputActions.Player.RT.performed += i => rtInput = true;
+
+            if(rbInput)
+            {
+                if(!playerAttacker.LightAttackBusy())
+                {
+                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                }
+            }   
+            
+            if (rtInput)
+            {
+                if(!playerAttacker.HeavyAttackBusy())
+                {
+                    playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+                }
+            }
+        }
     }
 }
