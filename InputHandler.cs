@@ -10,10 +10,30 @@ namespace SG
         public float mouseX;
         public float mouseY;
 
+        public bool circleInput;
+        public bool rollFlag;
+        public bool isInteracting;
+
         InputSystem_Actions inputActions;
+        CameraHandler cameraHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
+
+        private void Awake()
+        {
+            cameraHandler = CameraHandler.singleton; //GetComponent<CameraHandler>();
+        }
+
+        private void FixedUpdate()
+        {
+            float delta = Time.fixedDeltaTime;
+            if (cameraHandler != null)
+            {
+                cameraHandler.FollowTarget(delta);
+                cameraHandler.HandleCameraRotation(delta, mouseX, mouseY);
+            }
+        }
 
         public void OnEnable()
         {
@@ -34,6 +54,7 @@ namespace SG
         public void TickInput(float delta)
         {
             MoveInput(delta);
+            HandleCircleInput(delta);
         }
 
         private void MoveInput(float delta)
@@ -43,6 +64,15 @@ namespace SG
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
             mouseX = cameraInput.x;
             mouseY = cameraInput.y;
+        }
+
+        private void HandleCircleInput(float delta)
+        {
+            circleInput = inputActions.Player.Crouch.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+            if(circleInput)
+            {
+                rollFlag = true;
+            }
         }
 
     }

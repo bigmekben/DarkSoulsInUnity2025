@@ -5,6 +5,8 @@ namespace SG
     public class AnimatorHandler : MonoBehaviour
     {
         public Animator anim;
+        public InputHandler inputHandler;
+        public PlayerLocomotion playerLocomotion;
         int vertical;
         int horizontal;
         public bool canRotate;
@@ -12,6 +14,14 @@ namespace SG
         public void Initialize()
         {
             anim = GetComponent<Animator>();
+            if(inputHandler == null)
+            {
+                inputHandler = GetComponentInParent<InputHandler>();
+            }
+            if(playerLocomotion == null)
+            {
+                playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+            }
             vertical = Animator.StringToHash("Vertical");
             horizontal = Animator.StringToHash("Horizontal");
         }
@@ -85,5 +95,28 @@ namespace SG
         {
             canRotate = false;
         }    
+
+        public void PlayTargetAnimation(string targetAnim, bool isInteracting)
+        {
+            anim.applyRootMotion = isInteracting;
+            anim.SetBool("isInteracting", isInteracting);
+            anim.CrossFade(targetAnim, 0.2f);
+        }
+
+
+        public void OnAnimatorMove()
+        {
+            if (inputHandler.isInteracting == false)
+            {
+                return;
+            }
+
+            float delta = Time.deltaTime;
+            playerLocomotion.rigidbody.linearDamping = 0;
+            Vector3 deltaPosition = anim.deltaPosition;
+            deltaPosition.y = 0;
+            Vector3 velocity = deltaPosition / delta;
+            playerLocomotion.rigidbody.linearVelocity = velocity;
+        }
     }
 }
