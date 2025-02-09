@@ -32,21 +32,37 @@ namespace SG
 
         public void HandleLightAttack(WeaponItem weapon)
         {
-            if(weapon.baseStamina * weapon.lightAttackMultiplier < playerStats.currentStamina)
+            int cost = (int)((float)(weapon.baseStamina) * weapon.lightAttackMultiplier); // to do: move cost property to weapon
+            if(cost < playerStats.currentStamina)
             {
                 weaponSlotManager.attackingWeapon = weapon;
                 animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true);
                 lastAttack = weapon.OH_Light_Attack_1;
             }
+            else
+            {
+                // don't prevent further action while animating:
+                animatorHandler.PlayTargetAnimation("ShakeHeadNo", false);
+                // to do: animator.CrossFade() using avatar mask, so player can still walk around during head-shake movement and look natural
+                Debug.Log($"This move costs {cost} stamina points, but you only have {playerStats.currentStamina}.");
+            }
         }
 
         public void HandleHeavyAttack(WeaponItem weapon) 
-        { 
-            if(weapon.baseStamina * weapon.heavyAttackMultiplier < playerStats.currentStamina)
+        {
+            int cost = (int)((float)weapon.baseStamina * weapon.heavyAttackMultiplier);
+            if(cost < playerStats.currentStamina)
             {
                 weaponSlotManager.attackingWeapon = weapon;
                 animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true);
                 lastAttack = weapon.OH_Heavy_Attack_1;
+            }
+            else
+            {
+                // don't prevent further action while animating:
+                animatorHandler.PlayTargetAnimation("ShakeHeadNo", false);
+                // to do: animator.CrossFade() using avatar mask, so player can still walk around during head-shake movement and look natural
+                Debug.Log($"This move costs {cost} stamina points, but you only have {playerStats.currentStamina}.");
             }
         }
 

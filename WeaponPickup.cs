@@ -1,4 +1,7 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SG
 {
@@ -24,6 +27,9 @@ namespace SG
             playerLocomotion.rigidbody.linearVelocity = Vector3.zero; // prevent "ice-skating"
             animatorHandler.PlayTargetAnimation("Pick Up Item", true);
             playerInventory.weaponsInventory.Add(weapon);
+            playerManager.itemInteractableGameObject.GetComponentInChildren<TextMeshProUGUI>().text = weapon.itemName;
+            playerManager.itemInteractableGameObject.GetComponentInChildren<RawImage>().texture = weapon.itemIcon.texture;
+            playerManager.itemInteractableGameObject.SetActive(true);
             Destroy(gameObject);
         }
     }

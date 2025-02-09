@@ -10,6 +10,9 @@ namespace SG
         Animator anim;
         CameraHandler cameraHandler;
         PlayerLocomotion playerLocomotion;
+        InteractableUI interactableUI;
+        public GameObject interactableUIGameObject;
+        public GameObject itemInteractableGameObject;
 
         [Header("Player Flags")]
         public bool isInteracting;
@@ -29,6 +32,7 @@ namespace SG
             inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
+            interactableUI = FindFirstObjectByType<InteractableUI>();
         }
 
         // Update is called once per frame
@@ -85,13 +89,25 @@ namespace SG
                     if (interactableObject != null)
                     {
                         string interactableText = interactableObject.interactableText;
-                        // set the UI text to interactable text
-                        // set text pop up to true
+                        interactableUI.interactableText.text = interactableText;
+                        interactableUIGameObject.SetActive(true);
                         if (inputHandler.aInput)
                         {
                             hit.collider.GetComponent<Interactable>().Interact(this);
                         }
                     }
+                }
+            }
+            else
+            {
+                if(interactableUIGameObject != null)
+                {
+                    interactableUIGameObject.SetActive(false);
+                }
+
+                if(itemInteractableGameObject != null && inputHandler.aInput)
+                {
+                    itemInteractableGameObject.SetActive(false);
                 }
             }
         }
