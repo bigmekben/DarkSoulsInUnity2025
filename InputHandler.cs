@@ -135,7 +135,7 @@ namespace SG
 
                 }
 
-                playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
         }
 

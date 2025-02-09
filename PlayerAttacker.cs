@@ -6,12 +6,16 @@ namespace SG
     {
         AnimatorHandler animatorHandler;
         InputHandler inputHandler;
+        WeaponSlotManager weaponSlotManager;
+        PlayerStats playerStats;
         public string lastAttack;
 
         private void Awake()
         {
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
             inputHandler = GetComponent<InputHandler>();
+            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+            playerStats = GetComponent<PlayerStats>();
         }
 
         public void HandleWeaponCombo(WeaponItem weapon)
@@ -28,14 +32,22 @@ namespace SG
 
         public void HandleLightAttack(WeaponItem weapon)
         {
-            animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true);
-            lastAttack = weapon.OH_Light_Attack_1;
+            if(weapon.baseStamina * weapon.lightAttackMultiplier < playerStats.currentStamina)
+            {
+                weaponSlotManager.attackingWeapon = weapon;
+                animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true);
+                lastAttack = weapon.OH_Light_Attack_1;
+            }
         }
 
         public void HandleHeavyAttack(WeaponItem weapon) 
         { 
-            animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_attack_1 , true);
-            lastAttack = weapon.OH_Heavy_attack_1;
+            if(weapon.baseStamina * weapon.heavyAttackMultiplier < playerStats.currentStamina)
+            {
+                weaponSlotManager.attackingWeapon = weapon;
+                animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true);
+                lastAttack = weapon.OH_Heavy_Attack_1;
+            }
         }
 
 

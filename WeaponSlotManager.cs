@@ -10,14 +10,19 @@ namespace SG
         DamageCollider leftHandDamageCollider;
         DamageCollider rightHandDamageCollider;
 
+        public WeaponItem attackingWeapon;
+
         Animator animator;
 
         QuickSlotsUI quickSlotsUI;
+
+        PlayerStats playerStats;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             quickSlotsUI = FindFirstObjectByType<QuickSlotsUI>();
+            playerStats = GetComponentInParent<PlayerStats>();
 
             // This will look in the bones of the model's skeleton, which count as game objects:
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
@@ -113,5 +118,18 @@ namespace SG
 
         #endregion
 
+        #region Handle Weapon's Stamina Drainage
+
+        public void DrainStaminaLightAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+        }
+
+        public void DrainStaminaHeavyAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
+        }
+
+        #endregion
     }
 }

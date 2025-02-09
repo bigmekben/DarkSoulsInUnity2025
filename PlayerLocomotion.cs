@@ -11,6 +11,7 @@ namespace SG
         PlayerManager playerManager;
         Transform cameraObject;
         InputHandler inputHandler;
+        PlayerStats playerStats;
         public Vector3 moveDirection;
 
         [HideInInspector]
@@ -18,6 +19,10 @@ namespace SG
         [HideInInspector]
         public AnimatorHandler animatorHandler;
 
+        // to do: calculate these depending on stats and equipment load
+        public int staminaNeededForRoll = 20;
+        public int staminaNeededForBackstep = 20;
+        public int staminaNeededForSprint = 1;
 
         public new Rigidbody rigidbody; // tbd: is "new" needed?
         public GameObject normalCamera;
@@ -65,6 +70,7 @@ namespace SG
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            playerStats = GetComponent<PlayerStats>();
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
@@ -123,10 +129,11 @@ namespace SG
 
             float speed = movementSpeed * inputHandler.moveAmount;
 
-            if (inputHandler.sprintFlag)
+            if (inputHandler.sprintFlag && playerStats.currentStamina >= staminaNeededForSprint)
             {
                 speed = sprintSpeed;
                 playerManager.isSprinting = true;
+                playerStats.TakeStaminaDamage(staminaNeededForSprint);
             }
             else
             {
@@ -159,14 +166,20 @@ namespace SG
 
                 if(inputHandler.moveAmount > 0)
                 {
-                    animatorHandler.PlayTargetAnimation("Rolling", true);
-                    moveDirection.y = 0;
-                    Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
-                    myTransform.rotation = rollRotation;
+                    if(playerStats.currentStamina >= staminaNeededForRoll)
+                    {
+                        animatorHandler.PlayTargetAnimation("Rolling", true);
+                        moveDirection.y = 0;
+                        Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                        myTransform.rotation = rollRotation;
+                    }
                 }
                 else
                 {
-                    animatorHandler.PlayTargetAnimation("Backstep", true);
+                    if(playerStats.currentStamina >= staminaNeededForBackstep)
+                    {
+                        animatorHandler.PlayTargetAnimation("Backstep", true);
+                    }
                 }
             }
         }
