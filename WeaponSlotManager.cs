@@ -12,9 +12,12 @@ namespace SG
 
         Animator animator;
 
+        QuickSlotsUI quickSlotsUI;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
+            quickSlotsUI = FindFirstObjectByType<QuickSlotsUI>();
 
             // This will look in the bones of the model's skeleton, which count as game objects:
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
@@ -46,6 +49,7 @@ namespace SG
             {
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
+                quickSlotsUI.UpdateWeaponQuickSlotsUI(true, weaponItem);
                 #region Handle Left Weapon Idle Animations
                 if (weaponItem != null)
                 {
@@ -61,6 +65,7 @@ namespace SG
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
+                quickSlotsUI.UpdateWeaponQuickSlotsUI(false, weaponItem);
                 #region Handle Right Weapon Idle Animations
                 if (weaponItem != null)
                 {
