@@ -25,6 +25,8 @@ namespace SG
         public bool inventoryInput;
         public bool l3Input;
         public bool r3Input;
+        public bool rightStickRightInput;
+        public bool rightStickLeftInput;
 
         public bool rollFlag;
         public bool sprintFlag;
@@ -68,6 +70,8 @@ namespace SG
                 inputActions.Player.OptionsButton.performed += i => inventoryInput = true;
                 inputActions.Player.L3.performed += i => l3Input = true;
                 inputActions.Player.R3.performed += i => r3Input = true;
+                inputActions.Player.LockOnTransformRight.performed += i => rightStickRightInput = true;
+                inputActions.Player.LockOnTransformLeft.performed += i => rightStickLeftInput = true;
             }
             inputActions.Enable();
         }
@@ -216,7 +220,6 @@ namespace SG
         {
             if(r3Input && !lockOnFlag)
             {
-                cameraHandler.ClearLockOnTargets();
                 r3Input = false;
                 cameraHandler.HandleLockOn();
                 if(cameraHandler.nearestLockOnTarget != null)
@@ -230,6 +233,25 @@ namespace SG
                 r3Input = false;
                 lockOnFlag = false;
                 cameraHandler.ClearLockOnTargets();
+            }
+            if(lockOnFlag && rightStickLeftInput)
+            {
+                rightStickLeftInput = false;
+                cameraHandler.HandleLockOn();
+                if(cameraHandler.leftLockTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+                }
+            }
+
+            if (lockOnFlag && rightStickRightInput)
+            {
+                rightStickRightInput = false;
+                cameraHandler.HandleLockOn();
+                if (cameraHandler.rightLockTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+                }
             }
         }
     }
