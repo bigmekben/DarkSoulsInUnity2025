@@ -8,6 +8,7 @@ namespace SG
 {
     public class PlayerLocomotion : MonoBehaviour
     {
+        CameraHandler cameraHandler;
         PlayerManager playerManager;
         Transform cameraObject;
         InputHandler inputHandler;
@@ -63,8 +64,8 @@ namespace SG
         float rotationSpeed = 10f;
         [SerializeField]
         float fallingSpeed = 80f;
-        [SerializeField]
-        float jumpForce = 10f;
+        //[SerializeField]
+        //float jumpForce = 10f;
 
         private void Start()
         {
@@ -77,10 +78,13 @@ namespace SG
             myTransform = transform;
             animatorHandler.Initialize();
             playerManager.isGrounded = true;
-            ignoreForGroundCheck = ~(1 << 8 | 1 << 11);
+            ignoreForGroundCheck = ~(1 << 11);
         }
 
-
+        private void Awake()
+        {
+            cameraHandler = FindFirstObjectByType<CameraHandler>();
+        }
         #region Movement
 
         Vector3 normalVector;
@@ -88,26 +92,59 @@ namespace SG
 
         private void HandleRotation(float delta)
         {
-            Vector3 targetDir = Vector3.zero;
-            float moveOverride = inputHandler.moveAmount;
-
-            targetDir = cameraObject.forward * inputHandler.vertical;
-            targetDir += cameraObject.right * inputHandler.horizontal;
-
-            targetDir.Normalize();
-            targetDir.y = 0;
-
-            if (targetDir == Vector3.zero)
+            if(inputHandler.lockOnFlag)
             {
-                targetDir = myTransform.forward;
+                if (inputHandler.sprintFlag || inputHandler.rollFlag)
+                {
+                    Vector3 targetDirection = Vector3.zero;
+                    targetDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
+                    targetDirection += cameraHandler.cameraTransform.right * inputHandler.horizontal;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0;
+                    if (targetDirection == Vector3.zero)
+                    {
+                        targetDirection = transform.forward;
+                    }
+
+                    Quaternion tr = Quaternion.LookRotation(targetDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
+                    transform.rotation = targetRotation;
+                }
+                else
+                {
+                    Vector3 rotationDirection = moveDirection;
+                    rotationDirection = cameraHandler.currentLockOnTarget.position - transform.position;
+                    rotationDirection.y = 0;
+                    rotationDirection.Normalize();
+                    Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
+                    transform.rotation = targetRotation;
+                }
+
             }
+            else
+            {
+                Vector3 targetDir = Vector3.zero;
+                float moveOverride = inputHandler.moveAmount;
 
-            float rs = rotationSpeed;
+                targetDir = cameraObject.forward * inputHandler.vertical;
+                targetDir += cameraObject.right * inputHandler.horizontal;
 
-            Quaternion tr = Quaternion.LookRotation(targetDir);
-            Quaternion targetRotation = Quaternion.Slerp(myTransform.rotation, tr, rs * delta);
+                targetDir.Normalize();
+                targetDir.y = 0;
 
-            myTransform.rotation = targetRotation;
+                if (targetDir == Vector3.zero)
+                {
+                    targetDir = myTransform.forward;
+                }
+
+                float rs = rotationSpeed;
+
+                Quaternion tr = Quaternion.LookRotation(targetDir);
+                Quaternion targetRotation = Quaternion.Slerp(myTransform.rotation, tr, rs * delta);
+
+                myTransform.rotation = targetRotation;
+            }
         }
 
         public void HandleMovement(float delta)
@@ -146,7 +183,15 @@ namespace SG
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
             rigidbody.linearVelocity = projectedVelocity;
 
-            animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
+            if(inputHandler.lockOnFlag && !inputHandler.sprintFlag)
+            {
+                animatorHandler.UpdateAnimatorValues(inputHandler.vertical, inputHandler.horizontal, playerManager.isSprinting);
+            }
+            else
+            {
+                animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
+            }
+
 
             if (animatorHandler.canRotate)
             {
@@ -295,31 +340,31 @@ namespace SG
 
         public void HandleJumping()
         {
-            if(playerManager.isInteracting)
-            {
-                return;
-            }
+            //if(playerManager.isInteracting)
+            //{
+            //    return;
+            //}
 
-            if(inputHandler.yInput)
-            {
-                if(inputHandler.moveAmount > 0)
-                {
-                    moveDirection = cameraObject.forward * inputHandler.vertical;
-                    moveDirection += cameraObject.right * inputHandler.horizontal;
-                    // from roblatham4122 on Episode 19:
+            //if(inputHandler.yInput)
+            //{
+            //    if(inputHandler.moveAmount > 0)
+            //    {
+            //        moveDirection = cameraObject.forward * inputHandler.vertical;
+            //        moveDirection += cameraObject.right * inputHandler.horizontal;
+            //        // from roblatham4122 on Episode 19:
 
-                    //Vector3 currentVelocity = GetComponent<Rigidbody>().linearVelocity;
-                    //Vector3 jumpDirection = (moveDirection + Vector3.up).normalized;
-                    //GetComponent<Rigidbody>().linearVelocity = currentVelocity + jumpDirection * jumpForce;
+            //        //Vector3 currentVelocity = GetComponent<Rigidbody>().linearVelocity;
+            //        //Vector3 jumpDirection = (moveDirection + Vector3.up).normalized;
+            //        //GetComponent<Rigidbody>().linearVelocity = currentVelocity + jumpDirection * jumpForce;
 
-                    // BT: also match the collider's position
+            //        // BT: also match the collider's position
 
-                    animatorHandler.PlayTargetAnimation("Jump", false); // true rec. by SG, false rec. by @DiegoGrajales12 on Ep 19
-                    moveDirection.y = 0; // root motion will take care of y movement
-                    Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
-                    myTransform.rotation = jumpRotation;
-                }
-            }
+            //        animatorHandler.PlayTargetAnimation("Jump", false); // true rec. by SG, false rec. by @DiegoGrajales12 on Ep 19
+            //        moveDirection.y = 0; // root motion will take care of y movement
+            //        Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
+            //        myTransform.rotation = jumpRotation;
+            //    }
+            //}
         }
         #endregion
     }

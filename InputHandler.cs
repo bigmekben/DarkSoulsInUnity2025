@@ -32,6 +32,7 @@ namespace SG
         public bool sprintFlag;
         public bool comboFlag;
         public bool lockOnFlag;
+        public bool twoHandFlag;
         public bool inventoryFlag;
         public float rollInputTimer;
 
@@ -41,6 +42,7 @@ namespace SG
         PlayerManager playerManager;
         UIManager uiManager;
         CameraHandler cameraHandler;
+        WeaponSlotManager weaponSlotManager;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -52,6 +54,7 @@ namespace SG
             playerManager = GetComponent<PlayerManager>();
             uiManager = FindFirstObjectByType<UIManager>();
             cameraHandler = FindFirstObjectByType<CameraHandler>();
+            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         }
 
         public void OnEnable()
@@ -93,9 +96,9 @@ namespace SG
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
             HandleInteractingButtonInput();
-            HandleYTriangleInput();
             HandleInventoryInput();
             HandleLockOnInput();
+            HandleTwoHandInput();
         }
 
         private void HandleMoveInput(float delta)
@@ -191,10 +194,6 @@ namespace SG
 
         }
 
-        private void HandleYTriangleInput()
-        {
-        }
-
         private void HandleInventoryInput()
         {
             if(inventoryInput)
@@ -254,6 +253,25 @@ namespace SG
                 }
             }
             cameraHandler.SetCameraHeight();
+        }
+
+        private void HandleTwoHandInput()
+        {
+            if(yInput)
+            {
+                twoHandFlag = !twoHandFlag;
+                yInput = false;
+            }
+
+            if(twoHandFlag)
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+            }
+            else
+            {
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ namespace SG
         [Header("Idle Animations")]
         public string right_Hand_Idle;
         public string left_Hand_Idle;
+        public string th_idle;
 
         [Header("Attack Animations")]
         public string OH_Light_Attack_1;
