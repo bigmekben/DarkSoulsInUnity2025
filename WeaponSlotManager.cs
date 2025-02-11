@@ -88,12 +88,18 @@ namespace SG
 
         private void LoadLeftWeaponDamageCollider()
         {
-            leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            if(leftHandSlot.currentWeaponModel != null)
+            {
+                leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            }
         }
 
         private void LoadRightWeaponDamageCollider()
         {
-            rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            if(rightHandSlot.currentWeaponModel != null)
+            {
+                rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            }
         }
 
         public void OpenRightHandDamageCollider()
@@ -122,12 +128,18 @@ namespace SG
 
         public void DrainStaminaLightAttack()
         {
-            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+            if(attackingWeapon != null)
+            {
+                playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+            }
         }
 
         public void DrainStaminaHeavyAttack()
         {
-            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
+            if (attackingWeapon != null)
+            {
+                playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
+            }
         }
 
         #endregion

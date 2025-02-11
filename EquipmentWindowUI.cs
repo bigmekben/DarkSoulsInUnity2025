@@ -12,11 +12,10 @@ namespace SG
         public bool leftHandSlot03Selected;
         public bool leftHandSlot04Selected;
 
-        HandEquipmentSlotUI[] handEquipmentSlotUI;
+        public HandEquipmentSlotUI[] handEquipmentSlotUI;
 
         private void Start()
         {
-            handEquipmentSlotUI = GetComponentsInChildren<HandEquipmentSlotUI>();
         }
 
         public void LoadWeaponsOnEquipmentScreen(PlayerInventory playerInventory)
@@ -58,43 +57,63 @@ namespace SG
             }
         }
 
+        private void ResetAllSelected()
+        {
+            rightHandSlot01Selected = false;
+            rightHandSlot02Selected = false;
+            rightHandSlot03Selected = false;
+            rightHandSlot04Selected = false;
+            leftHandSlot01Selected = false;
+            leftHandSlot02Selected = false;
+            leftHandSlot03Selected = false;
+            leftHandSlot04Selected = false;
+        }
+
         public void SelectRightHandSlot01()
         {
+            ResetAllSelected();
             rightHandSlot01Selected = true;
         }
 
         public void SelectRightHandSlot02()
         {
+            ResetAllSelected();
             rightHandSlot02Selected = true;
         }
 
         public void SelectRightHandSlot03()
         {
+            ResetAllSelected();
             rightHandSlot03Selected = true;
         }
 
         public void SelectRightHandSlot04()
         {
+            ResetAllSelected();
             rightHandSlot04Selected = true;
         }
 
         public void SelectLeftHandSlot01()
         {
+            ResetAllSelected();
             leftHandSlot01Selected = true;
         }
 
         public void SelectLeftHandSlot02()
         {
+            ResetAllSelected();
             leftHandSlot02Selected = true;
         }
 
         public void SelectLeftHandSlot03()
         {
+            ResetAllSelected();
             leftHandSlot03Selected = true;
         }
 
         public void SelectLeftHandSlot04()
         {
+            ResetAllSelected();
             leftHandSlot04Selected = true;
         }
     }

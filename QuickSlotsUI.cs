@@ -9,6 +9,10 @@ namespace SG
 
         public void UpdateWeaponQuickSlotsUI(bool isLeft, WeaponItem weapon)
         {
+            if(weapon == null)
+            {
+                return;
+            }
             if(isLeft == false)
             {
                 if (weapon.itemIcon != null)

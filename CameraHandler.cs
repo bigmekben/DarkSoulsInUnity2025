@@ -66,6 +66,7 @@ namespace SG
             myTransform.position = targetPosition;
 
             HandleCameraCollisions(delta);
+            MaintainLockOnTargets();
         }
 
         public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
@@ -126,12 +127,39 @@ namespace SG
             cameraTransform.localPosition = cameraTransformPosition;
         }
 
+        // BT Feb 11, 2025: prevent swapping to candidate targets behind walls, etc.
+        public void MaintainLockOnTargets()
+        {
+            RaycastHit hit;
+            if(leftLockTarget != null)
+            {
+                if (Physics.Linecast(playerManager.lockOnTransform.position, leftLockTarget.position, out hit))
+                {
+                    if (hit.transform.gameObject.layer == environmentLayer)
+                    {
+                        leftLockTarget = null;
+                    }
+                }
+            }
+            if (rightLockTarget != null)
+            {
+                if (Physics.Linecast(playerManager.lockOnTransform.position, rightLockTarget.position, out hit))
+                {
+                    if (hit.transform.gameObject.layer == environmentLayer)
+                    {
+                        rightLockTarget = null;
+                    }
+                }
+            }
+        }
+
         public void HandleLockOn()
         {
             float shortestDistance = Mathf.Infinity;
             float shortestDistanceOfLeftTarget = Mathf.Infinity;
             float shortestDistanceOfRightTarget = Mathf.Infinity;
-
+            // BT Feb 11, 2025: prevent switching targets when pass behind wall
+            availableTargets.Clear();
             Collider[] colliders = Physics.OverlapSphere(targetTransform.position, 26);
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -147,7 +175,7 @@ namespace SG
                     {
                         if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
                         {
-                            Debug.DrawLine(playerManager.lockOnTransform.position, character.lockOnTransform.position);
+                            Debug.DrawLine(playerManager.lockOnTransform.position, character.lockOnTransform.position, Color.black, 3f, false);
                             if (hit.transform.gameObject.layer == environmentLayer)
                             {
                                 // cannot lock onto target; object in the way
@@ -156,8 +184,11 @@ namespace SG
                             {
                                 availableTargets.Add(character);
                             }
+                            // fixed glitch that allowed lock on through walls.  However the following glitch still
+                            // remains: if user locked on, then walked behind wall, the lock on remains, and furthermore
+                            // the player can switch to other invisible targets with Right Stick (because the other
+                            // targets were visible when the lock on occurred).
                         }
-                        availableTargets.Add(character);
                     }
                 }
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SG
@@ -36,52 +37,60 @@ namespace SG
 
         private void Start()
         {
-            rightWeapon = unarmedWeapon;
-            leftWeapon = unarmedWeapon;
+            rightWeapon = weaponsInRightHandSlots[0] ?? unarmedWeapon;
+            leftWeapon = weaponsInLeftHandSlots[0] ?? unarmedWeapon;
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
 
         public void ChangeRightWeapon()
         {
-            currentRightWeaponIndex++;
-            if (currentRightWeaponIndex > weaponsInRightHandSlots.Length - 1)
+            if(weaponsInRightHandSlots.Count(w=>w != null) > 0)
             {
-                currentRightWeaponIndex = -1;
-                rightWeapon = unarmedWeapon;
-                weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, false);
-            }
-            else
-            {
-                if (weaponsInRightHandSlots[currentRightWeaponIndex] != null)
+                currentRightWeaponIndex++;
+                if (currentRightWeaponIndex > weaponsInRightHandSlots.Length - 1)
                 {
-                    rightWeapon = weaponsInRightHandSlots[currentRightWeaponIndex];
-                    weaponSlotManager.LoadWeaponOnSlot(weaponsInRightHandSlots[currentRightWeaponIndex], false);
+                    currentRightWeaponIndex = -1;
+                    rightWeapon = unarmedWeapon;
+                    weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, false);
                 }
                 else
                 {
-                    currentRightWeaponIndex++;
+                    if (weaponsInRightHandSlots[currentRightWeaponIndex] != null)
+                    {
+                        rightWeapon = weaponsInRightHandSlots[currentRightWeaponIndex];
+                        weaponSlotManager.LoadWeaponOnSlot(weaponsInRightHandSlots[currentRightWeaponIndex], false);
+                    }
+                    else
+                    {
+                        currentRightWeaponIndex++;
+                    }
                 }
             }
         }
 
         internal void ChangeLeftWeapon()
         {
-            currentLeftWeaponIndex++;
-            if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1)
+            if(weaponsInLeftHandSlots.Count(w => w != null) > 0)
             {
-                currentLeftWeaponIndex = -1;
-                leftWeapon = unarmedWeapon;
-                weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
-            }
-            else
-            {
-                if(weaponsInLeftHandSlots[currentLeftWeaponIndex] != null)
+                currentLeftWeaponIndex++;
+                if (currentLeftWeaponIndex > weaponsInLeftHandSlots.Length - 1)
                 {
-                    leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
-                    weaponSlotManager.LoadWeaponOnSlot(weaponsInLeftHandSlots[currentLeftWeaponIndex], true);
+                    currentLeftWeaponIndex = -1;
+                    leftWeapon = unarmedWeapon;
+                    weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, true);
                 }
                 else
                 {
-                    currentLeftWeaponIndex++;
+                    if (weaponsInLeftHandSlots[currentLeftWeaponIndex] != null)
+                    {
+                        leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
+                        weaponSlotManager.LoadWeaponOnSlot(weaponsInLeftHandSlots[currentLeftWeaponIndex], true);
+                    }
+                    else
+                    {
+                        currentLeftWeaponIndex++;
+                    }
                 }
             }
         }
